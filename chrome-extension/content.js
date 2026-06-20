@@ -52,6 +52,19 @@
     };
   }
 
+  function cleanContextMenuLink(event) {
+    const anchor = event.target?.closest?.('a[href]');
+    if (!anchor) return;
+
+    const cleaned = cleanYouTubeUrl(anchor.href);
+    if (cleaned !== anchor.href) anchor.href = cleaned;
+  }
+
+  document.addEventListener('pointerdown', event => {
+    if (event.button === 2) cleanContextMenuLink(event);
+  }, true);
+  document.addEventListener('contextmenu', cleanContextMenuLink, true);
+
   document.addEventListener('copy', event => {
     const selection = globalThis.getSelection()?.toString();
     if (!selection || !event.clipboardData) return;
