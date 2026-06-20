@@ -34,6 +34,17 @@ If you previously installed a local copy, replace it with the GitHub version
 once. The userscript includes `@updateURL` and `@downloadURL`, so Tampermonkey
 can then fetch future releases automatically from this repository.
 
+## Tests
+
+The same clipboard-cleaning cases run against both the Tampermonkey userscript
+and the Chrome extension content script. Run them locally with:
+
+```sh
+npm test
+```
+
+GitHub Actions also runs the suite on every push and pull request.
+
 ## Chrome extension installation
 
 1. Open `chrome://extensions`.

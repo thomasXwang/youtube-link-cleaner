@@ -1,0 +1,11 @@
+{
+  "name": "youtube-link-cleaner",
+  "version": "1.0.1",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
