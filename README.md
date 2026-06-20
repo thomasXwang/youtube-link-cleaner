@@ -23,9 +23,16 @@ Playback parameters such as `t`, `start`, `end`, `list`, and `index` are kept.
 ## Tampermonkey installation
 
 1. Install Tampermonkey in Chrome.
-2. Open the Tampermonkey dashboard and choose **Create a new script**.
-3. Replace the template with the contents of `youtube-link-cleaner.user.js`.
-4. Save it and reload any open YouTube tabs.
+2. Open the [raw userscript](https://raw.githubusercontent.com/thomasXwang/youtube-link-cleaner/main/youtube-link-cleaner.user.js).
+3. Tampermonkey will show an installation screen; choose **Install**.
+4. Reload any open YouTube tabs.
+
+If the raw link does not open Tampermonkey, use **Tampermonkey Dashboard →
+Utilities → Install from URL** and paste the raw userscript URL above.
+
+If you previously installed a local copy, replace it with the GitHub version
+once. The userscript includes `@updateURL` and `@downloadURL`, so Tampermonkey
+can then fetch future releases automatically from this repository.
 
 ## Chrome extension installation
 
