@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name         YouTube Link Cleaner
 // @namespace    local.youtube-link-cleaner
-// @version      1.0.0
+// @version      1.0.1
 // @description  Removes tracking parameters from YouTube URLs copied to the clipboard.
 // @match        https://www.youtube.com/*
 // @match        https://m.youtube.com/*
 // @match        https://music.youtube.com/*
 // @match        https://youtu.be/*
+// @updateURL    https://raw.githubusercontent.com/thomasXwang/youtube-link-cleaner/main/youtube-link-cleaner.user.js
+// @downloadURL  https://raw.githubusercontent.com/thomasXwang/youtube-link-cleaner/main/youtube-link-cleaner.user.js
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
