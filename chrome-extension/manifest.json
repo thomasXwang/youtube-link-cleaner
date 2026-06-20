@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Link Cleaner",
+  "version": "1.0.0",
+  "description": "Removes tracking parameters from YouTube URLs copied to the clipboard.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://m.youtube.com/*",
+        "https://music.youtube.com/*",
+        "https://youtu.be/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}
