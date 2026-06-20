@@ -11,6 +11,7 @@ const distributions = [
 
 function loadDistribution(relativePath) {
   const writes = [];
+  const listeners = new Map();
 
   class Clipboard {
     writeText(text) {
@@ -22,16 +23,29 @@ function loadDistribution(relativePath) {
   const context = vm.createContext({
     Clipboard,
     URL,
-    document: { addEventListener() {} },
+    document: {
+      addEventListener(type, listener) {
+        listeners.set(type, listener);
+      }
+    },
     getSelection: () => ({ toString: () => '' })
   });
 
   const filename = path.join(__dirname, '..', relativePath);
   vm.runInContext(fs.readFileSync(filename, 'utf8'), context, { filename });
 
-  return async text => {
-    await new context.Clipboard().writeText(text);
-    return writes.at(-1);
+  return {
+    async cleanClipboardText(text) {
+      await new context.Clipboard().writeText(text);
+      return writes.at(-1);
+    },
+    cleanContextMenuLink(href) {
+      const anchor = { href };
+      listeners.get('contextmenu')({
+        target: { closest: selector => selector === 'a[href]' ? anchor : null }
+      });
+      return anchor.href;
+    }
   };
 }
 
@@ -76,8 +90,16 @@ const cases = [
 for (const distribution of distributions) {
   for (const testCase of cases) {
     test(`${distribution}: ${testCase.name}`, async () => {
-      const cleanClipboardText = loadDistribution(distribution);
-      assert.equal(await cleanClipboardText(testCase.input), testCase.expected);
+      const cleaner = loadDistribution(distribution);
+      assert.equal(await cleaner.cleanClipboardText(testCase.input), testCase.expected);
     });
   }
+
+  test(`${distribution}: cleans a native context-menu link before Chrome copies it`, () => {
+    const cleaner = loadDistribution(distribution);
+    assert.equal(
+      cleaner.cleanContextMenuLink('https://www.youtube.com/watch?v=4pc1owWsG4M&pp=ugUEEgJmcg%3D%3D'),
+      'https://www.youtube.com/watch?v=4pc1owWsG4M'
+    );
+  });
 }
