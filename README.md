@@ -1,7 +1,8 @@
 # YouTube Link Cleaner
 
 Removes known tracking and attribution parameters from YouTube URLs when a
-YouTube page writes them to the clipboard.
+YouTube page writes them to the clipboard or when Chrome's native **Copy link
+address** command is used on a YouTube video link.
 
 Tiny, auditable, and private: it requests no extension permissions, makes no
 network requests, and stores no data.
