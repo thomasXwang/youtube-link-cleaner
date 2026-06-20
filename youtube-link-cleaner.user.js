@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Link Cleaner
 // @namespace    local.youtube-link-cleaner
-// @version      1.0.1
+// @version      1.0.2
 // @description  Removes tracking parameters from YouTube URLs copied to the clipboard.
 // @match        https://www.youtube.com/*
 // @match        https://m.youtube.com/*
@@ -66,6 +66,19 @@
       return originalWriteText.call(this, cleanText(text));
     };
   }
+
+  function cleanContextMenuLink(event) {
+    const anchor = event.target?.closest?.('a[href]');
+    if (!anchor) return;
+
+    const cleaned = cleanYouTubeUrl(anchor.href);
+    if (cleaned !== anchor.href) anchor.href = cleaned;
+  }
+
+  document.addEventListener('pointerdown', event => {
+    if (event.button === 2) cleanContextMenuLink(event);
+  }, true);
+  document.addEventListener('contextmenu', cleanContextMenuLink, true);
 
   document.addEventListener('copy', event => {
     const selection = globalThis.getSelection()?.toString();
